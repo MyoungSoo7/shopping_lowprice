@@ -5,8 +5,9 @@ import com.lms.springcore.model.UserRoleEnum;
 import com.lms.springcore.model.Users;
 import com.lms.springcore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import java.util.Optional;
 
 @Service
@@ -21,7 +22,7 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public void registerUser(SignupRequestDto requestDto) {
+    public Users registerUser(SignupRequestDto requestDto) {
         // 회원 ID 중복 확인
         String username = requestDto.getUsername();
         Optional<Users> found = userRepository.findByUsername(username);
@@ -44,5 +45,6 @@ public class UserService {
 
         Users user = new Users(username, password, email, role);
         userRepository.save(user);
+        return user;
     }
 }
