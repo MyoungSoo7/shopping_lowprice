@@ -41,7 +41,7 @@ public class ProductController {
     public Long updateProduct(@PathVariable Long id, @RequestBody ProductMypriceRequestDto requestDto) {
         Product product = productService.updateProduct(id, requestDto);
 
-// 응답 보내기 (업데이트된 상품 id)
+        // 응답 보내기 (업데이트된 상품 id)
         return product.getId();
     }
 
@@ -54,7 +54,7 @@ public class ProductController {
             @RequestParam("isAsc") boolean isAsc,
             @AuthenticationPrincipal UserDetailsImpl userDetails
     ) {
-// 로그인 되어 있는 회원 테이블의 ID
+        // 로그인 되어 있는 회원 테이블의 ID
         Long userId = userDetails.getUser().getId();
         page = page - 1;
 
@@ -86,6 +86,3 @@ public class ProductController {
         return product.getId();
     }
 }
-
-
-
