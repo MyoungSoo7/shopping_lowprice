@@ -3,6 +3,7 @@ package com.lms.springcore.service;
 import com.lms.springcore.dto.ProductMypriceRequestDto;
 import com.lms.springcore.dto.ProductRequestDto;
 import com.lms.springcore.model.Product;
+import com.lms.springcore.repository.FolderRepository;
 import com.lms.springcore.repository.ProductRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,9 @@ class ProductServiceTest {
     @Mock
     ProductRepository productRepository;
 
+    @Mock
+    FolderRepository folderRepository;
+
     @Test
     @DisplayName("관심 상품 희망가 - 최저가 이상으로 변경")
     void updateProduct_Normal() {
@@ -34,7 +38,7 @@ class ProductServiceTest {
         );
 
         Long userId = 777L;
-        ProductRequestDto requestProductDto = new ProductRequestDto(
+        ProductRequestDto  requestProductDto = new ProductRequestDto(
                 "오리온 꼬북칩 초코츄러스맛 160g",
                 "https://shopping-phinf.pstatic.net/main_2416122/24161228524.20200915151118.jpg",
                 "https://search.shopping.naver.com/gate.nhn?id=24161228524",
@@ -43,8 +47,7 @@ class ProductServiceTest {
 
         Product product = new Product(requestProductDto, userId);
 
-        // MockProductService
-        ProductService productService = new ProductService(productRepository);
+        ProductService productService = new ProductService(productRepository, folderRepository);
         when(productRepository.findById(productId))
                 .thenReturn(Optional.of(product));
 
@@ -66,7 +69,7 @@ class ProductServiceTest {
                 myprice
         );
 
-        ProductService productService = new ProductService(productRepository);
+        ProductService productService = new ProductService(productRepository, folderRepository);
 
         // when
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
@@ -80,5 +83,3 @@ class ProductServiceTest {
         );
     }
 }
-
-

@@ -37,6 +37,9 @@ public class Users {
     @Column(unique = true)
     private Long kakaoId;
 
+/*    @OneToMany
+    private List<Folder> folders;*/
+
     public Users(String username, String password, String email, UserRoleEnum role) {
         this.username = username;
         this.password = password;

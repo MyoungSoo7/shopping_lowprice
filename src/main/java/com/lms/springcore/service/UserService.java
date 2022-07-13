@@ -5,9 +5,8 @@ import com.lms.springcore.model.UserRoleEnum;
 import com.lms.springcore.model.Users;
 import com.lms.springcore.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
 
 @Service
