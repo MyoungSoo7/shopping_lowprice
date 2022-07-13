@@ -1,5 +1,6 @@
 package com.lms.springcore.service;
 
+import com.lms.springcore.exception.ErrorCode;
 import com.lms.springcore.model.Folder;
 import com.lms.springcore.model.Product;
 import com.lms.springcore.model.Users;
@@ -47,6 +48,7 @@ public class FolderService {
         // 입력으로 들어온 폴더 이름이 이미 존재하는 경우, Exception 발생
         boolean isExistFolder = folderRepository.existsByUserAndName(user, folderName);
         if (isExistFolder) {
+            //throw ErrorCode.DUPLICATED_FOLDER_NAME;
             throw new IllegalArgumentException("중복된 폴더명을 제거해 주세요! 폴더명: " + folderName);
         }
 
