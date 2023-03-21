@@ -17,12 +17,13 @@ import java.util.List;
 
 @Service
 public class ItemSearchService {
+
     public List<ItemDto> getItems(String query) throws IOException {
         // 네이버 쇼핑 API 호출에 필요한 Header, Body 정리
         RestTemplate rest = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Naver-Client-Id", "zdqMoIkFaK8uKvC2oNY2");
-        headers.add("X-Naver-Client-Secret", "LiZfsgtuD5");
+        headers.add("X-Naver-Client-Id", "");
+        headers.add("X-Naver-Client-Secret", "");
         String body = "";
         HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
 
@@ -36,9 +37,23 @@ public class ItemSearchService {
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         JsonNode itemsNode = objectMapper.readTree(naverApiResponseJson).get("items");
         List<ItemDto> itemDtoList = objectMapper
-                .readerFor(new TypeReference<List<ItemDto>>() {})
+                .readerFor(new TypeReference<List<ItemDto>>() {
+                })
                 .readValue(itemsNode);
 
         return itemDtoList;
     }
+
+    /*public List<ItemDto> fromJSONtoItems(String result) {
+        JSONObject rjson = new JSONObject(result);
+        JSONArray items = rjson.getJSONArray("items");
+        List<ItemDto> ret = new ArrayList<>();
+        for (int i = 0; i < items.length(); i++) {
+            JSONObject itemJson = items.getJSONObject(i);
+            System.out.println(itemJson);
+            ItemDto itemDto = new ItemDto(itemJson);
+            ret.add(itemDto);
+        }
+        return ret;
+    }*/
 }

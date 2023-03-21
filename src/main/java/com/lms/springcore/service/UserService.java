@@ -13,7 +13,7 @@ import java.util.Optional;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private static final String ADMIN_TOKEN = "6re47J2YIOuCmOudvOyZgCDqt7jsnZgg7J2Y66W8IOq1rO2VmOudvA==";
+    private static final String ADMIN_TOKEN = "";
 
     @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {

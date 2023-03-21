@@ -1,6 +1,5 @@
 package com.lms.springcore.service;
 
-import com.lms.springcore.exception.ErrorCode;
 import com.lms.springcore.model.Folder;
 import com.lms.springcore.model.Product;
 import com.lms.springcore.model.Users;

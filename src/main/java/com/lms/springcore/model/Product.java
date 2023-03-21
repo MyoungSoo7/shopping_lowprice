@@ -1,5 +1,6 @@
 package com.lms.springcore.model;
 
+import com.lms.springcore.dto.ProductMypriceRequestDto;
 import com.lms.springcore.dto.ProductRequestDto;
 import com.lms.springcore.validator.ProductValidator;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.List;
 @Getter // get 함수를 일괄적으로 만들어줍니다.
 @NoArgsConstructor // 기본 생성자를 만들어줍니다.
 @Entity // DB 테이블 역할을 합니다.
-public class Product {
+public class Product extends Timestamped {
 
     // ID가 자동으로 생성 및 증가합니다.
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -53,6 +54,20 @@ public class Product {
         this.link = requestDto.getLink();
         this.lprice = requestDto.getLprice();
         this.myprice = 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", image='" + image + '\'' +
+                ", link='" + link + '\'' +
+                ", lprice=" + lprice +
+                ", myprice=" + myprice +
+                ", userId=" + userId +
+                ", folderList=" + folderList +
+                '}';
     }
 
     public void addFolder(Folder folder) {

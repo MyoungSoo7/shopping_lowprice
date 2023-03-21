@@ -141,21 +141,6 @@ public class KakaoUserService {
 
             userRepository.save(kakaoUser);
 
-           /* // 회원가입
-            // username: kakao nickname
-            String nickname = kakaoUserInfo.getNickname();
-
-            // password: random UUID
-            String password = UUID.randomUUID().toString();
-            String encodedPassword = passwordEncoder.encode(password);
-
-            // email: kakao email
-            String email = kakaoUserInfo.getEmail();
-            // role: 일반 사용자
-            UserRoleEnum role = UserRoleEnum.USER;
-
-            kakaoUser = new Users(nickname, encodedPassword, email, role, kakaoId);
-            userRepository.save(kakaoUser);*/
         }
         return kakaoUser;
     }
