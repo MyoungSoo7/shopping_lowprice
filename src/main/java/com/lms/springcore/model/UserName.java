@@ -9,12 +9,10 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Setter
-@Getter // get 함수를 일괄적으로 만들어줍니다.
-@NoArgsConstructor // 기본 생성자를 만들어줍니다.
-@Entity // DB 테이블 역할을 합니다.
+@Getter
+@NoArgsConstructor
+@Entity
 public class UserName {
-    // nullable: null 허용 여부
-// unique: 중복 허용 여부 (false 일때 중복 허용)
     @Id
     @Column(name = "id", nullable = false, unique = true)
     private String username;

@@ -1,6 +1,5 @@
 package com.lms.springcore.model;
 
-import com.lms.springcore.dto.ProductMypriceRequestDto;
 import com.lms.springcore.dto.ProductRequestDto;
 import com.lms.springcore.validator.ProductValidator;
 import lombok.Getter;
@@ -10,17 +9,15 @@ import javax.persistence.*;
 import java.util.List;
 
 @Setter
-@Getter // get 함수를 일괄적으로 만들어줍니다.
-@NoArgsConstructor // 기본 생성자를 만들어줍니다.
-@Entity // DB 테이블 역할을 합니다.
+@Getter
+@NoArgsConstructor
+@Entity
 public class Product extends Timestamped {
 
-    // ID가 자동으로 생성 및 증가합니다.
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
     private Long id;
 
-    // 반드시 값을 가지도록 합니다.
     @Column(nullable = false)
     private String title;
 
@@ -42,12 +39,9 @@ public class Product extends Timestamped {
     @ManyToMany
     private List<Folder> folderList;
 
-    // 관심 상품 생성 시 이용합니다.
     public Product(ProductRequestDto requestDto, Long userId) {
-        // 입력값 Validation
         ProductValidator.validateProductInput(requestDto, userId);
 
-        // 관심상품을 등록한 회원 Id 저장
         this.userId = userId;
         this.title = requestDto.getTitle();
         this.image = requestDto.getImage();
