@@ -1,8 +1,8 @@
 package com.lms.springcore.model;
 
 public enum UserRoleEnum {
-    USER(Authority.USER), // 사용자 권한
-    ADMIN(Authority.ADMIN); // 관리자 권한
+    USER(Authority.USER),
+    ADMIN(Authority.ADMIN);
 
     private final String authority;
 

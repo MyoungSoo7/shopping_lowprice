@@ -22,8 +22,8 @@ public class ItemSearchService {
         // 네이버 쇼핑 API 호출에 필요한 Header, Body 정리
         RestTemplate rest = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
-        headers.add("X-Naver-Client-Id", "");
-        headers.add("X-Naver-Client-Secret", "");
+        headers.add("X-Naver-Client-Id", "zdqMoIkFaK8uKvC2oNY2");
+        headers.add("X-Naver-Client-Secret", "LiZfsgtuD5");
         String body = "";
         HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
 
