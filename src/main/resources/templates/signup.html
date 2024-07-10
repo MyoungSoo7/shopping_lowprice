@@ -1,50 +1,71 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-  <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <title>회원가입 페이지</title>
-  <script>
-    function onclickAdmin() {
-// Get the checkbox
-      var checkBox = document.getElementById("admin-check");
-// Get the output text
-      var box = document.getElementById("admin-token");
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <title>회원가입 페이지</title>
+    <script>
+        function onclickAdmin() {
+            var checkBox = document.getElementById("admin-check");
+            var box = document.getElementById("admin-token");
+            if (checkBox.checked == true) {
+                box.style.display = "block";
+            } else {
+                box.style.display = "none";
+            }
+        }
 
-// If the checkbox is checked, display the output text
-      if (checkBox.checked == true){
-        box.style.display = "block";
-      } else {
-        box.style.display = "none";
-      }
-    }
-  </script>
+        function signup() {
+            var username = document.getElementById('username').value.trim();
+            var password = document.getElementById('password').value.trim();
+            var email = document.getElementById('email').value.trim();
+
+            if (!username || !password || !email) {
+                alert('모든 필드를 입력해 주세요.');
+                return;
+            }
+
+            document.getElementById('signup-form').submit();
+        }
+
+        // 에러 메시지가 있을 경우 div를 보이게 함
+        document.addEventListener('DOMContentLoaded', function() {
+            var errorMessageDiv = document.getElementById('error-message');
+            if (errorMessageDiv.textContent.trim() !== '') {
+                errorMessageDiv.style.display = 'block';
+            }
+        });
+    </script>
 </head>
 <body>
 <div id="login-form">
-  <div id="login-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회&nbsp;  원&nbsp;  가&nbsp;  입</div>
+    <div id="login-title">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;회&nbsp; 원&nbsp; 가&nbsp; 입</div>
 
-  <form action="/user/signup" method="post">
-    <div class="login-id-label">Username</div>
-    <input type="text" name="username" placeholder="Username" class="login-input-box">
+    <form id="signup-form" action="/user/signup" method="post">
+        <div class="login-id-label">Username</div>
+        <input type="text" id="username" name="username" placeholder="Username" class="login-input-box">
 
-    <div class="login-id-label">Password</div>
-    <input type="password" name="password" class="login-input-box">
+        <div class="login-id-label">Password</div>
+        <input type="password" id="password" name="password" class="login-input-box">
 
-    <div class="login-id-label">E-mail</div>
-    <input type="text" name="email" placeholder="E-mail" class="login-input-box">
+        <div class="login-id-label">E-mail</div>
+        <input type="text" id="email" name="email" placeholder="E-mail" class="login-input-box">
 
-    <div>
-      <input id="admin-check" type="checkbox" name="admin" onclick="onclickAdmin()" style="margin-top: 40px;">관리자
-      <input id="admin-token" type="password" name="adminToken" placeholder="관리자 암호" class="login-input-box" style="display:none">
-    </div>
-    <button id="login-id-submit">회원 가입</button>
-  </form>
+        <div>
+            <input id="admin-check" type="checkbox" name="admin" onclick="onclickAdmin()" style="margin-top: 40px;">관리자
+            <input id="admin-token" type="password" name="adminToken" placeholder="관리자 암호" class="login-input-box"
+                   style="display:none">
+        </div>
+    </form>
+    <!--<div id="error-message" th:if="${errorMessage}" th:text="${#strings.escapeHtml(errorMessage)}" style="color: red; display: none;"></div>-->
+    <div id="error-message" th:if="${errorMessage}" th:text="${errorMessage}" style="color: red; display: none;"></div>
+    <button id="login-id-submit" onclick="signup()">회원 가입</button>
 </div>
+
 </body>
 </html>

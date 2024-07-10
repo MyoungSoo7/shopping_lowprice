@@ -2,10 +2,15 @@ package com.lms.springcore.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.lms.springcore.dto.SignupRequestDto;
+import com.lms.springcore.exception.ErrorMessage;
+import com.lms.springcore.model.Users;
 import com.lms.springcore.service.KakaoUserService;
 import com.lms.springcore.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,23 +27,25 @@ public class UserController {
         this.kakaoUserService = kakaoUserService;
     }
 
-    // 회원 로그인 페이지
     @GetMapping("/user/login")
     public String login() {
         return "login";
     }
 
-    // 회원 가입 페이지
     @GetMapping("/user/signup")
     public String signup() {
         return "signup";
     }
 
-    // 회원 가입 요청 처리
     @PostMapping("/user/signup")
-    public String registerUser(SignupRequestDto requestDto) {
-        userService.registerUser(requestDto);
-        return "redirect:/user/login";
+    public String registerUser(SignupRequestDto requestDto , Model model) {
+        try {
+            Users user = userService.registerUser(requestDto);
+            return "redirect:/user/login";
+        } catch (ErrorMessage e) {
+            model.addAttribute("errorMessage", e.getMessage());
+            return "signup";
+        }
     }
 
     @GetMapping("/user/kakao/callback")

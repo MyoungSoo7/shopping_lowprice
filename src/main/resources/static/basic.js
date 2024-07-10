@@ -284,10 +284,11 @@ function addProduct(itemDto) {
 
 function setMyprice() {
     let myprice = $('#myprice').val();
-    if (myprice == '') {
-        alert('올바른 가격을 입력해주세요');
+    if (myprice == '' || myprice < 1000) {
+        alert('올바른 가격(1000원이상)을 입력해주세요');
         return;
     }
+
     $.ajax({
         type: "PUT",
         url: `/api/products/${targetId}`,
