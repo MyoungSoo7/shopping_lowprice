@@ -1,5 +1,4 @@
 # 네이버 쇼핑 최저가 리스트
-### [쇼핑 최저가 리스트](http://infolim.site:8082)
 ## [활용기술] <br>
 * **Java 11** <br>
 * **SpringBoot 2.7.1**<br>
