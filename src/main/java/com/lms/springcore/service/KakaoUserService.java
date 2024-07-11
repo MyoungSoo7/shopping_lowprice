@@ -55,7 +55,6 @@ public class KakaoUserService {
         body.add("redirect_uri", "http://lmshi.shop:8083/user/kakao/callback");
         body.add("code", code);
 
-        // HTTP 요청 보내기
         HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
                 new HttpEntity<>(body, headers);
         RestTemplate rt = new RestTemplate();
@@ -66,7 +65,6 @@ public class KakaoUserService {
                 String.class
         );
 
-        // HTTP 응답 (JSON) -> 액세스 토큰 파싱
         String responseBody = response.getBody();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(responseBody);
@@ -74,12 +72,10 @@ public class KakaoUserService {
     }
 
     private KakaoUserInfoDto getKakaoUserInfo(String accessToken) throws JsonProcessingException {
-        // HTTP Header 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + accessToken);
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        // HTTP 요청 보내기
         HttpEntity<MultiValueMap<String, String>> kakaoUserInfoRequest = new HttpEntity<>(headers);
         RestTemplate rt = new RestTemplate();
         ResponseEntity<String> response = rt.exchange(
@@ -92,12 +88,10 @@ public class KakaoUserService {
         String responseBody = response.getBody();
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(responseBody);
+
         Long id = jsonNode.get("id").asLong();
-        String nickname = jsonNode.get("properties")
-                .get("nickname").asText();
-        String email = jsonNode.get("kakao_account")
-                .get("email").asText();
-        System.out.println("카카오 사용자 정보: " + id + ", " + nickname + ", " + email);
+        String nickname = jsonNode.get("properties").get("nickname").asText();
+        String email = jsonNode.get("kakao_account").get("email").asText();
         return new KakaoUserInfoDto(id, nickname, email);
     }
 
@@ -110,24 +104,16 @@ public class KakaoUserService {
             String kakaoEmail = kakaoUserInfo.getEmail();
             Users sameEmailUser = userRepository.findByEmail(kakaoEmail).orElse(null);
 
+            // 이메일로 가입한 회원이 있는 경우
             if(sameEmailUser != null){
                 kakaoUser = sameEmailUser;
-                // 기존 회원 정보에 카카오 ID 추가
                 kakaoUser.setKakaoId(kakaoId);
             }else{
                 //신규회원 가입
-                // user name 카카오 닉네임
                 String nickname = kakaoUserInfo.getNickname();
-
-                // password : random UUID
-                String password = UUID.randomUUID().toString();
-                String encodedPassword = passwordEncoder.encode(password);
-
-                // email : kakao email
+                String encodedPassword = passwordEncoder.encode(UUID.randomUUID().toString());
                 String email = kakaoUserInfo.getEmail();
-                // role : 일반 사용자
                 UserRoleEnum role = UserRoleEnum.USER;
-
                 kakaoUser = new Users(nickname, encodedPassword, email, role, kakaoId);
 
             }
