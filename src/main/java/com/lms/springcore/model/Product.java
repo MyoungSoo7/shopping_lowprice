@@ -36,7 +36,7 @@ public class Product extends Timestamped {
     @Column(nullable = false)
     private Long userId;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     private List<Folder> folderList;
 
     public Product(ProductRequestDto requestDto, Long userId) {

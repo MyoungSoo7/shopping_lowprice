@@ -84,6 +84,7 @@ public class ProductService {
         if (!product.getUserId().equals(loginUserId) || !folder.getUser().getId().equals(loginUserId)) {
             throw new IllegalArgumentException("회원님과 상품 혹은 폴더 매칭이 잘못되었습니다.");
         }
+
         product.addFolder(folder);
         return product;
     }
