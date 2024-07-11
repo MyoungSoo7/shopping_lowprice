@@ -8,7 +8,6 @@ import com.lms.springcore.model.Product;
 import com.lms.springcore.model.Users;
 import com.lms.springcore.repository.FolderRepository;
 import com.lms.springcore.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

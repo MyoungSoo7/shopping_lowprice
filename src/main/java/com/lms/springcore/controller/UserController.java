@@ -6,8 +6,6 @@ import com.lms.springcore.exception.ErrorMessage;
 import com.lms.springcore.model.Users;
 import com.lms.springcore.service.KakaoUserService;
 import com.lms.springcore.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
