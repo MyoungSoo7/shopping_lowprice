@@ -9,6 +9,7 @@ import com.lms.springcore.model.UserRoleEnum;
 import com.lms.springcore.repository.UserRepository;
 import com.lms.springcore.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -29,6 +30,8 @@ import java.util.UUID;
 public class KakaoUserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    @Value("${kakao.outh.client-id}")
+    private String kakaoAuthClientId;
 
     @Autowired
     public KakaoUserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
@@ -37,28 +40,18 @@ public class KakaoUserService {
     }
 
     public void kakaoLogin(String code) throws JsonProcessingException {
-        // 1. "인가 코드"로 "액세스 토큰" 요청
         String accessToken = getAccessToken(code);
-
-        // 2. "액세스 토큰"으로 "카카오 사용자 정보" 가져오기
         KakaoUserInfoDto kakaoUserInfo = getKakaoUserInfo(accessToken);
-
-        // 3. "카카오 사용자 정보"로 필요시 회원가입
         Users kakaoUser = registerKakaoUserIfNeeded(kakaoUserInfo);
-
-        // 4. 강제 로그인 처리
         forceLogin(kakaoUser);
     }
 
     private String getAccessToken(String code) throws JsonProcessingException {
-        // HTTP Header 생성
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
-        // HTTP Body 생성
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
         body.add("grant_type", "authorization_code");
-        body.add("client_id", "1035141c8e7e235a0711a5444e58b2c2");
+        body.add("client_id", kakaoAuthClientId);
         body.add("redirect_uri", "http://lmshi.shop:8083/user/kakao/callback");
         body.add("code", code);
 

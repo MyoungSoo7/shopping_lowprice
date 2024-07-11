@@ -33,7 +33,6 @@ public class FolderController {
         return folderService.addFolders(folderNames, user);
     }
 
-    // 회원이 등록한 모든 폴더 조회
     @GetMapping("api/folders")
     public List<Folder> getFolders(
             @AuthenticationPrincipal UserDetailsImpl userDetails
@@ -41,7 +40,6 @@ public class FolderController {
         return folderService.getFolders(userDetails.getUser());
     }
 
-    // 회원이 등록한 폴더 내 모든 상품 조회
     @GetMapping("api/folders/{folderId}/products")
     public Page<Product> getProductsInFolder(
             @PathVariable Long folderId,

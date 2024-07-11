@@ -8,6 +8,7 @@ import com.lms.springcore.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.Optional;
@@ -16,7 +17,8 @@ import java.util.Optional;
 public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private static final String ADMIN_TOKEN = "admin";
+    @Value("${admin.token}")
+    private String adminToken;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
@@ -34,7 +36,7 @@ public class UserService {
 
         UserRoleEnum role = UserRoleEnum.USER;
         if (requestDto.isAdmin()) {
-            if (!requestDto.getAdminToken().equals(ADMIN_TOKEN)) {
+            if (!requestDto.getAdminToken().equals(adminToken)) {
                 throw new ErrorMessage("관리자 암호가 틀려 등록이 불가능합니다.");
             }
             role = UserRoleEnum.ADMIN;

@@ -27,7 +27,7 @@ public class Scheduler {
     private final ItemSearchService itemSearchService;
 
     // 초(0~59), 분(0-59), 시(0~23), 일(1-31), 월(1-12), 요일(0~6), 연도(생략가능) 순서
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0 1 * * ?")
     public void updatePrice() throws InterruptedException, IOException {
         log.info("가격 업데이트 실행");
         log.info("1분실행 테스트");

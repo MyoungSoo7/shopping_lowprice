@@ -1,10 +1,10 @@
 package com.lms.springcore.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
-@Getter
+@Data
 public class SignupRequestDto {
     private String username;
     private String password;
@@ -12,14 +12,4 @@ public class SignupRequestDto {
     private boolean admin = false;
     private String adminToken = "";
 
-    @Override
-    public String toString() {
-        return "SignupRequestDto{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", email='" + email + '\'' +
-                ", admin=" + admin +
-                ", adminToken='" + adminToken + '\'' +
-                '}';
-    }
 }
