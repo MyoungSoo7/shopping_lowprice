@@ -7,6 +7,7 @@ import com.lms.springcore.model.Users;
 import com.lms.springcore.service.KakaoUserService;
 import com.lms.springcore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,8 @@ public class UserController {
 
     private final UserService userService;
     private final KakaoUserService kakaoUserService;
+    @Value("${kakao.outh.client-id}")
+    private String kakaoAuthClientId;
 
     @Autowired
     public UserController(UserService userService, KakaoUserService kakaoUserService) {
@@ -26,7 +29,9 @@ public class UserController {
     }
 
     @GetMapping("/user/login")
-    public String login() {
+    public String login(Model model)
+    {
+        model.addAttribute("clientId", kakaoAuthClientId);
         return "login";
     }
 
