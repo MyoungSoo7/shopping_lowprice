@@ -22,7 +22,6 @@ import java.util.concurrent.TimeUnit;
 public class Scheduler {
 
     private Logger logger = LoggerFactory.getLogger(Scheduler.class);
-
     private final ProductRepository productRepository;
     private final ProductService productService;
     private final ItemSearchService itemSearchService;

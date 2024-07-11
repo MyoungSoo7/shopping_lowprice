@@ -43,10 +43,8 @@ public class UseTimeAop {
                 long endTime = System.currentTimeMillis();
                 long runTime = endTime - startTime;
                 if (apiUseTime == null) {
-                    // 로그인 회원의 기록이 없으면
                     apiUseTime = new ApiUseTime(loginUser, runTime);
                 } else {
-                    // 로그인 회원의 기록이 이미 있으면
                     apiUseTime.addUseTime(runTime);
                 }
 
